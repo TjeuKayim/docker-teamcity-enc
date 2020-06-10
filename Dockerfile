@@ -1,5 +1,6 @@
 FROM jetbrains/teamcity-agent:latest
 
+USER root
 RUN apt-get update && \
 	apt-get install -y build-essential && \
 	curl -sL https://deb.nodesource.com/setup_13.x | bash - && \
@@ -16,3 +17,4 @@ RUN apt-get update && \
 	curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.2/bin/linux/amd64/kubectl && \
 	chmod +x ./kubectl && \
 	mv ./kubectl /usr/local/bin/kubectl
+USER buildagent
