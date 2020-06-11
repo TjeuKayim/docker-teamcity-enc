@@ -1,4 +1,4 @@
-FROM jetbrains/teamcity-agent:18.04
+FROM jetbrains/teamcity-agent:latest
 
 USER root
 RUN apt-get update && \
