@@ -1,7 +1,9 @@
 FROM jetbrains/teamcity-agent:latest
 
 USER root
-RUN apt-get update && \
+RUN 	curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add && \
+	echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list && \
+        apt-get update && \
 	apt-get install -y build-essential && \
 	curl -sL https://deb.nodesource.com/setup_13.x | bash - && \
 	apt-get install -y nodejs && \
@@ -13,12 +15,9 @@ RUN apt-get update && \
 		libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 \
 		libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release \
 		xdg-utils wget && \
+	apt-get -y install google-chrome-stable && \
 	apt-get clean all && \
 	curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.2/bin/linux/amd64/kubectl && \
 	chmod +x ./kubectl && \
-	mv ./kubectl /usr/local/bin/kubectl && \
-	sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add && \
-	sudo echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list && \
-	sudo apt-get -y update && \
-	sudo apt-get -y install google-chrome-stable
+	mv ./kubectl /usr/local/bin/kubectl
 USER root
