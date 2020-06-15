@@ -16,5 +16,9 @@ RUN apt-get update && \
 	apt-get clean all && \
 	curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.2/bin/linux/amd64/kubectl && \
 	chmod +x ./kubectl && \
-	mv ./kubectl /usr/local/bin/kubectl
+	mv ./kubectl /usr/local/bin/kubectl && \
+	sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add && \
+	sudo echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list && \
+	sudo apt-get -y update && \
+	sudo apt-get -y install google-chrome-stable && \
 USER root
